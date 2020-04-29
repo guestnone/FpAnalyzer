@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FpAnalyzer.UI", "FpAnalyzer.UI\FpAnalyzer.UI.csproj", "{EBBDEE90-D682-4ED1-BCDF-C3EEA6353A05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FpAnalyzer.Core", "FpAnalyzer.Core\FpAnalyzer.Core.csproj", "{97070B03-E649-4FB4-A417-B9B2196CA33C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBBDEE90-D682-4ED1-BCDF-C3EEA6353A05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBBDEE90-D682-4ED1-BCDF-C3EEA6353A05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBBDEE90-D682-4ED1-BCDF-C3EEA6353A05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBBDEE90-D682-4ED1-BCDF-C3EEA6353A05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97070B03-E649-4FB4-A417-B9B2196CA33C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97070B03-E649-4FB4-A417-B9B2196CA33C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97070B03-E649-4FB4-A417-B9B2196CA33C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97070B03-E649-4FB4-A417-B9B2196CA33C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {861A3CEB-30C5-482E-9A49-938203A9DE9D}
+	EndGlobalSection
+EndGlobal
