@@ -5,8 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FpAnalyzer.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Finger print analyzer" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
+        <StackPanel Grid.Column="0">
+            <Button x:Name="LoadButton" Content="Load"></Button>
+            <Button x:Name="SaveButton" Content="Save"></Button>
+
+            <GroupBox Header="Median Filter">
+                <StackPanel>
+                    <Label Content="Kernel Size"></Label>
+                    <ComboBox>
+                        <ComboBoxItem Name="Ke3x3" Content="3x3" IsSelected="True"></ComboBoxItem>
+                        <ComboBoxItem Name="Ke5x5" Content="5x5"></ComboBoxItem>
+                        <ComboBoxItem Name="Ke7x7" Content="7x7"></ComboBoxItem>
+                        <ComboBoxItem Name="Ke9x9" Content="9x9"></ComboBoxItem>
+                        <ComboBoxItem Name="Ke11x11" Content="11x11"></ComboBoxItem>
+                        <ComboBoxItem Name="Ke13x13" Content="13x13"></ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        
+        <Image Grid.Column="1" Name="Image"></Image>
     </Grid>
 </Window>
