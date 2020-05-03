@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="DotNetProjects.WpfToolkit.DataVisualization" Version="6.0.79" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
+    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>

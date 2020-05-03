@@ -59,7 +59,6 @@ namespace FpAnalyzer.Core
                 }
             }
 
-            //this.Threshold = (byte)threshold;
 
             for (int i = 0; i < length; i++)
                 resultBuffer[i] = p[i] > threshold ? byte.MaxValue : byte.MinValue;

@@ -15,8 +15,8 @@
 
         <StackPanel Grid.Column="0">
             <Button x:Name="LoadButton" Content="Load" Click="LoadButton_Click"></Button>
-            <Button x:Name="SaveAllStageButton" Content="Save all stages"></Button>
-            <Button x:Name="SaveFinalImageButton" Content="Save final image"></Button>
+            <Button x:Name="SaveAllStageButton" Content="Save all stages" Click="SaveAllStageButton_Click" IsEnabled="False"></Button>
+            <Button x:Name="SaveFinalImageButton" Content="Save final image" Click="SaveFinalImageButton_Click" IsEnabled="False"></Button>
 
             <GroupBox Header="Median Filter">
                 <StackPanel>
@@ -47,6 +47,7 @@
                 <Label Content="Current Stage View"></Label>
                 <ComboBox Name="CurrStageViewSizeComboBox" IsEnabled="False" SelectionChanged="CurrStageViewSizeComboBox_OnSelectionChanged">
                     <ComboBoxItem Name="CSVSourceImage" Content="Source Image" IsSelected="True"></ComboBoxItem>
+                    <ComboBoxItem Name="CSVPostGrayScale" Content="Gray scale"></ComboBoxItem>
                     <ComboBoxItem Name="CSVPostThresholding" Content="Post Thresholding"></ComboBoxItem>
                     <ComboBoxItem Name="CSVPostMedianFilter" Content="Post Median Filtering"></ComboBoxItem>
                     <ComboBoxItem Name="CSVPostSkeletonization" Content="Post Skeletonization"></ComboBoxItem>

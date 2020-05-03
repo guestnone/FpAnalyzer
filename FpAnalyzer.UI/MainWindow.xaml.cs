@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FpAnalyzer.Core;
 using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace FpAnalyzer.UI
 {
@@ -33,7 +34,7 @@ namespace FpAnalyzer.UI
         private Bitmap mSourceBitmap;
         private bool isLoaded = false;
         private FingerPrintProcessor mFingerPrintProcessor = new FingerPrintProcessor();
-
+        private string mFileName = "";
         private bool mGrayScale = false;
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
@@ -41,11 +42,13 @@ namespace FpAnalyzer.UI
             OpenFileDialog open = new OpenFileDialog
             {
                 Title = "Select image file",
-                InitialDirectory = Directory.GetCurrentDirectory()
+                InitialDirectory = Directory.GetCurrentDirectory(),
+                Filter = "PNG (*.png)|*.png|JPEG (*.jpeg)|*.jpeg|All files (*.*)|*.*"
             };
 
             if (open.ShowDialog() == true)
             {
+                mFileName = open.SafeFileName;
                 CurrStageViewSizeComboBox.SelectedItem = CSVSourceImage;
                 mSourceBitmap = new Bitmap(open.FileName);
 
@@ -61,6 +64,9 @@ namespace FpAnalyzer.UI
                 isLoaded = true;
                 ProcessButton.IsEnabled = true;
                 Image.Source = BitmapToImageSource(mSourceBitmap);
+                SaveAllStageButton.IsEnabled = false;
+                SaveFinalImageButton.IsEnabled = false;
+                CurrStageViewSizeComboBox.IsEnabled = false;
             }
         }
 
@@ -71,6 +77,8 @@ namespace FpAnalyzer.UI
             if (mFingerPrintProcessor.Process(mGrayScale))
             {
                 CurrStageViewSizeComboBox.IsEnabled = true;
+                SaveAllStageButton.IsEnabled = true;
+                SaveFinalImageButton.IsEnabled = true;
             }
             else
             {
@@ -138,6 +146,10 @@ namespace FpAnalyzer.UI
             {
                 Image.Source = BitmapToImageSource(mSourceBitmap);
             }
+            else if (Equals(CurrStageViewSizeComboBox.SelectedItem, CSVPostGrayScale))
+            {
+                Image.Source = BitmapToImageSource(mFingerPrintProcessor.GetProcessingStageBitmap(FingerPrintProcessingStage.GrayScale));
+            }
             else if (Equals(CurrStageViewSizeComboBox.SelectedItem, CSVPostThresholding))
             {
                 Image.Source = BitmapToImageSource(mFingerPrintProcessor.GetProcessingStageBitmap(FingerPrintProcessingStage.Thresholding));
@@ -161,6 +173,37 @@ namespace FpAnalyzer.UI
             else
             {
                 //throw new IndexOutOfRangeException("Unknown Stage");
+            }
+        }
+
+        private void SaveFinalImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog save = new SaveFileDialog
+            {
+                Title = "SaveFinalImage",
+                InitialDirectory = Directory.GetCurrentDirectory(),
+                DefaultExt = "png",
+                Filter = "PNG (*.png)|*.png|All files (*.*)|*.*"
+            };
+            if (save.ShowDialog() == true)
+            {
+                mFingerPrintProcessor.GetProcessingStageBitmap(FingerPrintProcessingStage.FinalOutput).Save(save.FileName);
+            }
+        }
+
+        private void SaveAllStageButton_Click(object sender, RoutedEventArgs e)
+        {
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.IsFolderPicker = true;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                string fileNameLoc = dialog.FileName + "\\" + mFileName;
+                mFingerPrintProcessor.GetProcessingStageBitmap(FingerPrintProcessingStage.GrayScale).Save(fileNameLoc + "_gray.png");
+                mFingerPrintProcessor.GetProcessingStageBitmap(FingerPrintProcessingStage.Thresholding).Save(fileNameLoc + "_thresholded.png");
+                mFingerPrintProcessor.GetProcessingStageBitmap(FingerPrintProcessingStage.MedianFiltering).Save(fileNameLoc + "_medianFiltered.png");
+                mFingerPrintProcessor.GetProcessingStageBitmap(FingerPrintProcessingStage.Skeletonization).Save(fileNameLoc + "_skeletonized.png");
+                mFingerPrintProcessor.GetProcessingStageBitmap(FingerPrintProcessingStage.MinutaeFiltering).Save(fileNameLoc + "_minutaeFiltered.png");
+                mFingerPrintProcessor.GetProcessingStageBitmap(FingerPrintProcessingStage.FinalOutput).Save(fileNameLoc + "_final.png");
             }
         }
     }
