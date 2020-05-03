@@ -24,7 +24,7 @@ namespace FpAnalyzer.Core
             mPostThresholdBitmap = mSourceBitmap.GetOtsuThresholded2();
             mPostMedianFilterBitmap = mPostThresholdBitmap.GetMedianFiltered(mMedianFilterKernelSize, mMedianFilterBias, true);
             // TODO: Implement Skeletonization and minutae filtering
-            mPostSkeletonizationBitmap = mPostMedianFilterBitmap;
+            mPostSkeletonizationBitmap = mPostMedianFilterBitmap.GetSkeletonization();
             mPostMinutaeFilteringBitmap = mPostSkeletonizationBitmap;
             return true;
         }
