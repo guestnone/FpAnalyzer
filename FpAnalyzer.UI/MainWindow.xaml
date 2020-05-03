@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FpAnalyzer.UI"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Finger print analyzer" Height="450" Width="800">
     <Grid>
@@ -13,13 +14,15 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0">
-            <Button x:Name="LoadButton" Content="Load"></Button>
-            <Button x:Name="SaveButton" Content="Save"></Button>
+            <Button x:Name="LoadButton" Content="Load" Click="LoadButton_Click"></Button>
+            <Button x:Name="SaveAllStageButton" Content="Save all stages"></Button>
+            <Button x:Name="SaveFinalImageButton" Content="Save final image"></Button>
 
             <GroupBox Header="Median Filter">
                 <StackPanel>
                     <Label Content="Kernel Size"></Label>
-                    <ComboBox>
+                    <ComboBox Name="MedianFilterKernelSizeComboBox" SelectionChanged="MedianFilterKernelSizeComboBox_OnSelectionChanged">
+                        <ComboBoxItem Name="KeDisable" Content="Disabled"></ComboBoxItem>
                         <ComboBoxItem Name="Ke3x3" Content="3x3" IsSelected="True"></ComboBoxItem>
                         <ComboBoxItem Name="Ke5x5" Content="5x5"></ComboBoxItem>
                         <ComboBoxItem Name="Ke7x7" Content="7x7"></ComboBoxItem>
@@ -27,10 +30,33 @@
                         <ComboBoxItem Name="Ke11x11" Content="11x11"></ComboBoxItem>
                         <ComboBoxItem Name="Ke13x13" Content="13x13"></ComboBoxItem>
                     </ComboBox>
+                    <Label Content="Bias"></Label>
+                    <xctk:IntegerUpDown Name="BiasIntegerUpDown" Value="0" Minimum="0" Maximum="255"></xctk:IntegerUpDown>
                 </StackPanel>
             </GroupBox>
+            <Button Name="ProcessButton" Content="Process" Click="ProcessButton_Click" IsEnabled="False"></Button>
         </StackPanel>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Name="Image"></Image>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Label Content="Current Stage View"></Label>
+                <ComboBox Name="CurrStageViewSizeComboBox" IsEnabled="False" SelectionChanged="CurrStageViewSizeComboBox_OnSelectionChanged">
+                    <ComboBoxItem Name="CSVSourceImage" Content="Source Image" IsSelected="True"></ComboBoxItem>
+                    <ComboBoxItem Name="CSVPostThresholding" Content="Post Thresholding"></ComboBoxItem>
+                    <ComboBoxItem Name="CSVPostMedianFilter" Content="Post Median Filtering"></ComboBoxItem>
+                    <ComboBoxItem Name="CSVPostSkeletonization" Content="Post Skeletonization"></ComboBoxItem>
+                    <ComboBoxItem Name="CSVPostMinuaeFiltering" Content="Post Minuae Filtering"></ComboBoxItem>
+                    <ComboBoxItem Name="CSVFinalImage" Content="Final Image"></ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+     
         
-        <Image Grid.Column="1" Name="Image"></Image>
+
     </Grid>
 </Window>
