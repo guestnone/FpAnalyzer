@@ -7,7 +7,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 namespace FpAnalyzer.Core
 {
 
-
     public enum FingerPrintProcessingStage
     {
         GrayScale,
@@ -30,7 +29,7 @@ namespace FpAnalyzer.Core
             mPostMedianFilterBitmap = mPostThresholdBitmap.GetMedianFiltered(mMedianFilterKernelSize, mMedianFilterBias, true);
             // TODO: Implement Skeletonization and minutae filtering
             mPostSkeletonizationBitmap = mPostMedianFilterBitmap.GetSkeletonization();
-            mPostMinutaeFilteringBitmap = mPostSkeletonizationBitmap;
+            mPostMinutaeFilteringBitmap = mPostSkeletonizationBitmap.GetMinutiaeExtracted();
             return true;
         }
 
