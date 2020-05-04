@@ -155,22 +155,5 @@ namespace FpAnalyzer.Core
 
         public static bool IsValid(byte b) => b != 255;
 
-        public static int GetDifferences(Minutiaes first, Minutiaes second)
-        {
-            var values = (MinutiaeType[])Enum.GetValues(typeof(MinutiaeType));
-            var count = new int[values.Length];
-
-            for (int i = 0; i < first.Count; i++)
-                if (first.TryGetValue(values[i], out var list))
-                    count[i] = list.Count;
-            for (int i = 0; i < first.Count; i++)
-                if (second.TryGetValue(values[i], out var list))
-                    count[i] -= list.Count;
-
-            int sum = 0;
-            foreach (int s in count)
-                sum += s > 0 ? s : -s;
-            return sum;
-        }
     }
 }
